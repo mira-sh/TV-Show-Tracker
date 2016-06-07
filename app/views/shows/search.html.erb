@@ -1,0 +1,42 @@
+<% if @shows == [] %>
+	<span class="center-block"> No matching shows </span><br>
+<% else %>
+			
+	<% @shows.each do |show| %>
+
+	<div class="col-md-3 col-sm-3">
+		<div class="panel panel-success panel-episode">
+			<div class="panel-heading">
+				 <span><%= show.name %></span><span class="pull-right">
+				 
+						<% if show.id == -1 %>
+							<span class="glyphicon glyphicon-heart" style="color:red"></span>
+						<% else %>
+							<%= form_tag({action: "create"}, method: "post") do %>
+								<div class="form-group">
+									<%= hidden_field_tag :show_id, show.id %>
+
+									<%= button_tag(type: 'submit', class: 'btn btn-success btn-xs') do
+											content_tag(:i, "", class: ["glyphicon", "glyphicon-heart"])
+										end %>										
+								</div>					
+							<% end %>
+							<% end %>
+							</span>
+			</div>
+			<div class="panel-image hidden-xs">
+				<% if show.image != nil %>
+					<img src="<%= show.image %>" class="img-responsive center-block" >
+				<% end %>
+			</div>
+		
+			<div class="panel-body">
+			<% if show.description != nil %>
+				<span><%= show.description.html_safe %></span><br>
+			<% end %>
+				<span class="text-primary"> <%= show.lastAirDate %> </span>
+			</div>
+		</div>
+	</div>
+	<% end %>
+<% end %>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Tracked Shows</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <span class="navbar-brand" >TV Show Tracker</span>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+          <ul class="nav navbar-nav">
+            <li>
+              <%= link_to 'My tracked shows', shows_path %>
+            </li>
+          </ul>
+
+			<%= form_tag({controller: "shows", action: "search"}, method: "post",class: 'navbar-form navbar-right') do %>
+			    <div class="form-group">
+					<%= text_field_tag :query, params[:query], placeholder: "Search for a TV show", class: "form-control"%>
+				
+					<%= button_tag(type: 'submit', class: 'btn btn-success') do
+							content_tag(:i, "", class: ["glyphicon", "glyphicon-search"])
+						end %>
+						
+				</div>
+				
+			<% end %>
+			
+		
+        </div>
+      </div>
+    </div>
+	<br>
+	<br>
+	<br>
+	  <%= yield %>
+  </body>
+  
+
+</html>
+
+

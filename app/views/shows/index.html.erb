@@ -1,0 +1,50 @@
+<% @shows.each do |show| %>
+<div class="col-md-3 col-sm-3">
+	<div class="panel panel-success panel-episode">
+		<div class="panel-heading">
+			 <span><%= show.name %></span><span class="pull-right">
+				 
+				 <%= link_to show_path(show),
+						  method: :delete,
+						  data: { confirm: 'Are you sure you want to stop trackibg this show?' },
+						  class: "btn btn-danger btn-xs" do %>
+							<i class="glyphicon glyphicon-remove"></i>
+							<% end %>
+			  
+			  
+			 </span>
+		</div>
+		<div class="panel-image hidden-xs">
+		
+		<%=link_to image_tag(show.image), show_path(show)%>
+		</div>
+		<div class="panel-body">
+		
+		
+			<% if show.running == true %>
+				<span class="center-block"> The show is currently running </span><br>
+			<% else %>
+				<span class="center-block"> The show is not running  </span><br>
+			<% end %>
+			<span><%= show.description.html_safe %></span><br>
+			<span class="text-primary"> <%= show.lastAirDate %> </span>
+			<span><%= show.show_id %></span>	
+		</div>
+		
+		
+	</div>
+
+</div>
+
+
+<% end %>
+	  
+
+
+
+
+
+
+
+
+

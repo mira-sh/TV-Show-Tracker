@@ -1,0 +1,53 @@
+<% @season_episode_list .reverse_each do |season_episodes| %>
+
+<span class="center-block"> season number <%= season_episodes[1].season %> </span>
+
+<div class = "table-responsive">
+<table class = "table table-hover">
+   <thead>
+      <tr>
+         <th>number</th>
+         <th>name</th>
+		 <th>airdate</th>
+		 <th>summary</th>
+		 
+      </tr>
+   </thead>
+     <tbody>
+   <% season_episodes .reverse_each do |episode| %>
+   
+      <tr>
+         <td>   <%= episode.number %></td>
+         <td><%= episode.name %></td>
+		 <td><% if episode.airdate != nil %>
+		 
+		 <%= DateTime.strptime(episode.airdate,'%Y-%m-%d').strftime('%v')  %>
+		 	<% end %> 
+		</td>
+         <td><%= episode.summary.html_safe %></td>
+		 
+		 <td>
+		 <%= form_tag({controller: "episodes", action: "mark_as_watched", episode_id: episode.id}, method: "post") do %>
+		 
+							<div  class="form-group">
+								<input type="checkbox" name="watched" <% if episode.watched == true %> checked <% end %> onchange="this.form.submit();"/>
+								<%= hidden_field_tag :episode_id, episode.id %>
+
+									
+							</div>
+							
+			
+				
+		<% end %>
+		 	</td>	 		 
+      </tr>	  
+	<% end %>  
+   </tbody>
+</table>
+
+<% end %> 	
+
+<%= link_to 'Back', shows_path %>
+
+
+
